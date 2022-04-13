@@ -9,7 +9,7 @@ namespace SystemInfoUtility.Navigation.ViewModels
     {
         private readonly IRegionManager _regionManager;
 
-        private ObservableCollection<string> _navigationItems;
+        private ObservableCollection<string> _navigationItems = default!;
 
         public ObservableCollection<string> NavigationItems
         {
@@ -17,7 +17,7 @@ namespace SystemInfoUtility.Navigation.ViewModels
             set { SetProperty(ref _navigationItems, value); }
         }
 
-        private string _selectedNavigationItem;
+        private string _selectedNavigationItem = default!;
 
         public string SelectedNavigationItem
         {

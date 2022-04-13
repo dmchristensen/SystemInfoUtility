@@ -17,16 +17,23 @@ namespace SystemInfoUtility.Regions
             {
                 if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
                 {
-                    foreach (FrameworkElement item in e.NewItems)
+                    if (e.NewItems != null)
                     {
-                        regionTarget.Children.Add(item);
+                        foreach (FrameworkElement item in e.NewItems)
+                        {
+                            regionTarget.Children.Add(item);
+                        }
                     }
+                    
                 }
                 else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
                 {
-                    foreach (FrameworkElement item in e.OldItems)
+                    if (e.OldItems != null)
                     {
-                        regionTarget.Children.Remove(item);
+                        foreach (FrameworkElement item in e.OldItems)
+                        {
+                            regionTarget.Children.Remove(item);
+                        }
                     }
                 }
             };

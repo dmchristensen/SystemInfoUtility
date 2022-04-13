@@ -10,7 +10,7 @@ namespace SystemInfoUtility.Content.ViewModels
 {
     public class NetworkViewModel : BindableBase
     {
-        private ObservableCollection<string> _availableIpv4Addresses;
+        private ObservableCollection<string> _availableIpv4Addresses = default!;
 
         public ObservableCollection<string> AvailableIPv4Addresses
         {
@@ -18,7 +18,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _availableIpv4Addresses, value); }
         }
 
-        private string _selectedIpv4Address;
+        private string _selectedIpv4Address = default!;
 
         public string SelectedIPv4Address
         {
@@ -28,7 +28,7 @@ namespace SystemInfoUtility.Content.ViewModels
 
         public DelegateCommand IpSelectionChangedCommand { get; set; }
 
-        private string _subnetMask;
+        private string _subnetMask = default!;
 
         public string SubnetMask
         {

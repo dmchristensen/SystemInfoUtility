@@ -9,14 +9,14 @@ namespace SystemInfoUtility.Content.ViewModels
     {
         private readonly DispatcherTimer _refreshTimer;
 
-        private string _hostName;
+        private string _hostName = default!;
         public string HostName
         {
             get { return _hostName; }
             set { SetProperty(ref _hostName, value); }
         }
 
-        private string _currentDirectory;
+        private string _currentDirectory = default!;
 
         public string CurrentDirectory
         {
@@ -24,7 +24,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _currentDirectory, value); }
         }
 
-        private string _userName;
+        private string _userName = default!;
 
         public string UserName
         {
@@ -32,7 +32,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _userName, value); }
         }
 
-        private string _userDomainName;
+        private string _userDomainName = default!;
 
         public string UserDomainName
         {
@@ -40,7 +40,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _userDomainName, value); }
         }
 
-        private string _osVersion;
+        private string _osVersion = default!;
 
         public string OSVersion
         {
@@ -48,7 +48,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _osVersion, value); }
         }
 
-        private string _deviceID;
+        private string _deviceID = default!;
 
         public string DeviceID
         {
@@ -56,7 +56,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _deviceID, value); }
         }
 
-        private string _systemDirectory;
+        private string _systemDirectory = default!;
 
         public string SystemDirectory
         {
@@ -64,7 +64,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _systemDirectory, value); }
         }
 
-        private string _clrVersion;
+        private string _clrVersion = default!;
 
         public string CLRVersion
         {
@@ -72,7 +72,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _clrVersion, value); }
         }
 
-        private int _processID;
+        private int _processID = default!;
 
         public int ProcessID
         {
@@ -80,7 +80,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _processID, value); }
         }
 
-        private int _currentManagedThreadID;
+        private int _currentManagedThreadID = default!;
 
         public int CurrentManagedThreadID
         {
@@ -88,7 +88,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _currentManagedThreadID, value); }
         }
 
-        private int _processorCount;
+        private int _processorCount = default!;
 
         public int ProcessorCount
         {
@@ -96,7 +96,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _processorCount, value); }
         }
 
-        private string _systemUpTime;
+        private string _systemUpTime = default!;
 
         public string SystemUpTime
         {
@@ -104,7 +104,7 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _systemUpTime, value); }
         }
 
-        private long _workingSet;
+        private long _workingSet = default!;
 
         public long WorkingSet
         {
