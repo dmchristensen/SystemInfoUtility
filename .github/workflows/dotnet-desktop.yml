@@ -83,4 +83,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Publish
-        path: src\SystemInfoUtility\bin\Debug\net6.0-windows\win-x64\publish
+        path: src\SystemInfoUtility\bin\Release\net6.0-windows\win-x64\publish
