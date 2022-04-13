@@ -50,7 +50,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug]
+        configuration: [Release]
 
     runs-on: windows-latest
     
@@ -72,7 +72,7 @@ jobs:
 
     # Publish the solution
     - name: Publish the solution
-      run: dotnet publish
+      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
       
     # Check directories
     - name: Check directories
@@ -83,4 +83,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Publish
-        path: src\SystemInfoUtility\bin\Debug\net6.0-windows\publish
+        path: src\SystemInfoUtility\bin\Debug\net6.0-windows\win-x64\publish
