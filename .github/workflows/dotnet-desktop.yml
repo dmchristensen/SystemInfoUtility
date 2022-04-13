@@ -52,12 +52,12 @@ jobs:
       matrix:
         configuration: [Debug, Release]
 
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
-    env:
-      Solution_Name: src\SystemInfoUtility.sln                      # Replace with your solution name, i.e. MyWpfApp.sln.
-
+    runs-on: windows-latest
+    
+    defaults:
+      run:
+        working-directory: src/SystemInfoUtility
+    
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -70,14 +70,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
-
     # Publish the solution
     - name: Publish the solution
       run: dotnet publish
@@ -87,4 +79,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Publish
-        path: SystemInfoUtility\bin\Debug\net6.0-windows\publish
+        path: bin\Debug\net6.0-windows\publish
