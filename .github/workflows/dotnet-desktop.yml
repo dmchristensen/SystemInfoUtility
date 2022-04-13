@@ -50,13 +50,13 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Debug]
 
     runs-on: windows-latest
     
     defaults:
       run:
-        working-directory: src/SystemInfoUtility
+        working-directory: src\SystemInfoUtility
     
     steps:
     - name: Checkout
@@ -73,6 +73,10 @@ jobs:
     # Publish the solution
     - name: Publish the solution
       run: dotnet publish
+      
+    # Check directories
+    - name: Check directories
+      run: Get-ChildItem -Recurse
 
     # Upload the publish folder
     - name: Upload build artifacts
