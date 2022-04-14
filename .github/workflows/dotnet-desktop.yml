@@ -98,16 +98,16 @@ jobs:
     # Harvest the published files
     - name: Wix Compile
       working-directory: src\SystemInfoUtility.Installer
-      run: "& '${{ env.WIX_PATH }}\\candle.exe' -dpublishDir='..\\${{ env.PUBLISH_DIR }}' *.wxs -out wixobj\\"
+      run: "& '${{ env.WIX_PATH }}\\candle.exe' -dpublishDir='..\\${{ env.PUBLISH_DIR }}' *.wxs -v -out wixobj\\"
 
     # Harvest the published files
     - name: Wix Link
       working-directory: src\SystemInfoUtility.Installer
-      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' wixobj\\*.wixobj"
+      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' -v wixobj\\*.wixobj"
 
     # Upload the publish folder
     - name: Upload MSI Installer
       uses: actions/upload-artifact@v3
       with:
         name: Publish
-        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.exe'
+        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.msi
