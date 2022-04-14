@@ -123,7 +123,7 @@ jobs:
     # Sign the MSI Installer
     - name: Sign MSI
       working-directory: src
-      run: "& '${{ env.WINDOWS_SDK_PATH }}\\signtool.exe' sign /sm /t '${{ env.TIMESTAMP_URL }}' /d '${{ env.SIGNED_NAME }}' /sha1 '${{ secrets.CERT_HASH }}' '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.Installer\\bin\\System Info Utility.msi'"
+      run: "& '${{ env.WINDOWS_SDK_PATH }}\\signtool.exe' sign /sm /t '${{ env.TIMESTAMP_URL }}' /d '${{ env.SIGNED_NAME }}' /sha1 '${{ secrets.CERT_HASH }}' 'SystemInfoUtility.Installer\\bin\\System Info Utility.msi'"
 
     # Remove the PFX
     - name: Remove PFX
