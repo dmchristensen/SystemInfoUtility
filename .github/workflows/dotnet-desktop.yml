@@ -94,6 +94,7 @@ jobs:
         certificate: '${{ secrets.CERTIFICATE }}'
         password: '${{ secrets.CERT_PASSWORD }}'
         certificatesha1: '${{ secrets.CERT_HASH }}'
+        timestampUrl: 'http://timestamp.digicert.com'
         folder: 'src\${{ env.PUBLISH_DIR }}'
         recursive: false
 
