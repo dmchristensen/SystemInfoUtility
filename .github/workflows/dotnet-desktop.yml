@@ -103,7 +103,7 @@ jobs:
     # Harvest the published files
     - name: Wix Link
       working-directory: src\SystemInfoUtility.Installer
-      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' wixobj\*.wixobj"
+      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' wixobj\\*.wixobj"
 
     # Upload the publish folder
     - name: Upload MSI Installer
