@@ -46,7 +46,8 @@ on:
 
 env:
   WIX_PATH: 'C:\Program Files (x86)\WiX Toolset v3.11\bin'
-  SOLUTION_NAME: SystemInfoUtility.sln
+  SOLUTION_NAME: 'SystemInfoUtility.sln'
+  PUBLISH_DIR: 'SystemInfoUtility\bin\Release\net6.0-windows\win-x64\publish'
 
 jobs:
 
@@ -84,17 +85,17 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-#    # Publish the solution
-#    - name: Publish the solution
-#      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
+    # Publish the solution
+    - name: Publish the solution
+      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
 
-    # Test MSBuild
-    - name: Build the installer
-      run: msbuild /t:Publish;Harvest;CreateMSI setup.build
+    # Harvest the published files
+    - name: Harvest
+      run: '"${{ env.WIX_PATH }}\heat.exe" dir ..\${{ env.Publish }} -dr APP_INSTALLDIR -ke -srd -sreg -cg ProductComponents -var var.publishDir -t Transform.xsl -gg -out Publish.wxs'
 
-    # Upload the publish folder
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: Publish
-        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.exe'
+#    # Upload the publish folder
+#    - name: Upload build artifacts
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Publish
+#        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.exe'
