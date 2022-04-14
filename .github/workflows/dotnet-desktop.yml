@@ -44,6 +44,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  WIX_DIR: C:\Program Files (x86)\WiX Toolset v3.11\bin
+
 jobs:
 
   build:
@@ -77,6 +80,10 @@ jobs:
     # Check directories
     - name: Check directories
       run: Get-ChildItem -Recurse
+    
+    # Test Wix access
+    - name: Test Wix Access
+      run: $WIX_DIR\light.exe
 
     # Upload the publish folder
     - name: Upload build artifacts
