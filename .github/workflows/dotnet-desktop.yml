@@ -73,21 +73,21 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    # Publish the solution
-    - name: Publish the solution
-      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
+#    # Publish the solution
+#    - name: Publish the solution
+#      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
       
-    # Check directories
-    - name: Check directories
-      run: Get-ChildItem -Recurse
+#    # Check directories
+#    - name: Check directories
+#      run: Get-ChildItem -Recurse
     
     # Test Wix access
     - name: Test Wix Access
-      run: $WIX_DIR\light.exe
+      run: ${{ env.WIX_BIN_PATH }}\light.exe
 
-    # Upload the publish folder
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: Publish
-        path: src\SystemInfoUtility\bin\Release\net6.0-windows\win-x64\publish
+#    # Upload the publish folder
+#    - name: Upload build artifacts
+#      uses: actions/upload-artifact@v3
+#      with:
+#        name: Publish
+#        path: src\SystemInfoUtility\bin\Release\net6.0-windows\win-x64\publish
