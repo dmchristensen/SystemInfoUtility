@@ -87,8 +87,9 @@ jobs:
 
     # Publish the solution
     - name: Publish the solution
+      working-directory: src\SystemInfoUtility
       run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
-
+    
     # Harvest the published files
     - name: Harvest
       run: '"${{ env.WIX_PATH }}\heat.exe" dir ..\${{ env.Publish }} -dr APP_INSTALLDIR -ke -srd -sreg -cg ProductComponents -var var.publishDir -t Transform.xsl -gg -out Publish.wxs'
