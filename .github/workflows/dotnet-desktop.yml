@@ -44,6 +44,8 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  WIX_PATH: 'C:\Program Files (x86)\WiX Toolset v3.11\bin'
 
 jobs:
 
@@ -78,12 +80,6 @@ jobs:
 #    # Check directories
 #    - name: Check directories
 #      run: Get-ChildItem -Recurse
-
-    # Set Wix Path
-    - name: Set path for candle and light
-      env:
-        WIX_PATH: ${{ env.wix }}
-      run: echo "$env:WIX_PATH\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
     
     # Echo Variables
     - name: Echo Wix Path
@@ -91,7 +87,8 @@ jobs:
 
     # Test Wix access
     - name: Test Wix Light
-      run: ${{ env.WIX_PATH }}\light.exe
+      working-directory: ${{ env.WIX_PATH }}
+      run: .\light.exe
 
 #    # Upload the publish folder
 #    - name: Upload build artifacts
