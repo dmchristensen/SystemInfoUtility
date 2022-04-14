@@ -87,6 +87,16 @@ jobs:
       working-directory: src\SystemInfoUtility
       run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
     
+    # Sign the executables
+    - name: Sign Executables
+      uses: DanaBear/code-sign-action@v4
+      with:
+        certificate: '${{ secrets.CERTIFICATE }}'
+        password: '${{ secrets.CERT_PASSWORD }}'
+        certificatesha1: '${{ secrets.CERT_HASH }}'
+        folder: 'src\${{ env.PUBLISH_DIR }}'
+        recursive: false
+
     # Harvest the published files
     - name: Wix Harvest
       working-directory: src\SystemInfoUtility.Installer
@@ -108,3 +118,4 @@ jobs:
       with:
         name: System Info Utility MSI
         path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.msi'
+        if-no-files-found: error
