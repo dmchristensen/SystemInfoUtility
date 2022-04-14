@@ -48,6 +48,10 @@ env:
   WIX_PATH: 'C:\Program Files (x86)\WiX Toolset v3.11\bin'
   SOLUTION_NAME: 'SystemInfoUtility.sln'
   PUBLISH_DIR: 'SystemInfoUtility\bin\Release\net6.0-windows\win-x64\publish'
+  WINDOWS_SDK_PATH: 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86'
+  TIMESTAMP_URL: 'http://timestamp.digicert.com'
+  SIGNED_NAME: 'System Info Utility'
+  PFX_FILE: 'cert.pfx'
 
 jobs:
 
@@ -87,16 +91,19 @@ jobs:
       working-directory: src\SystemInfoUtility
       run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
     
-    # Sign the executables
+    # Import the PFX
+    - name: Import PFX
+      working-directory: src
+      run: |
+        $pfx_cert_byte = [System.Convert]::FromBase64String('${{ secrets.CERTIFICATE }}')
+        [IO.File]::WriteAllBytes('${{ env.PFX_FILE }}', $pfx_cert_byte)
+        certutil -f -p '${{ secrets.CERT_PASSWORD }}' -importpfx '${{ env.PFX_FILE }}'
+
+    # Sign Executables
     - name: Sign Executables
-      uses: DanaBear/code-sign-action@v4
-      with:
-        certificate: '${{ secrets.CERTIFICATE }}'
-        password: '${{ secrets.CERT_PASSWORD }}'
-        certificatesha1: '${{ secrets.CERT_HASH }}'
-        timestampUrl: 'http://timestamp.digicert.com'
-        folder: 'src\${{ env.PUBLISH_DIR }}'
-        recursive: false
+      working-directory: src
+      run: |
+        & '${{ env.WINDOWS_SDK_PATH }}\\signtool.exe' sign /sm /t '${{ env.TIMESTAMP_URL }}' /d '${{ env.SIGNED_NAME }}' /sha1 '${{ secrets.CERT_HASH }}' '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.exe'
 
     # Harvest the published files
     - name: Wix Harvest
@@ -112,6 +119,16 @@ jobs:
     - name: Wix Link
       working-directory: src\SystemInfoUtility.Installer
       run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' -v wixobj\\*.wixobj"
+
+    # Sign the MSI Installer
+    - name: Sign MSI
+      working-directory: src
+      run: "& '${{ env.WINDOWS_SDK_PATH }}\\signtool.exe' sign /sm /t '${{ env.TIMESTAMP_URL }}' /d '${{ env.SIGNED_NAME }}' /sha1 '${{ secrets.CERT_HASH }}' '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.Installer\\bin\\System Info Utility.msi'"
+
+    # Remove the PFX
+    - name: Remove PFX
+      working-directory: src
+      run: Remove-Item '${{ env.PFX_FILE }}'
 
     # Upload the MSI installer as an artifact
     - name: Upload MSI Installer
