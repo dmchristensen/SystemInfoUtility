@@ -92,7 +92,7 @@ jobs:
     
     # Harvest the published files
     - name: Harvest
-      run: '"${{ env.WIX_PATH }}\heat.exe" dir ..\${{ env.Publish }} -dr APP_INSTALLDIR -ke -srd -sreg -cg ProductComponents -var var.publishDir -t Transform.xsl -gg -out Publish.wxs'
+      run: "'${{ env.WIX_PATH }}\heat.exe' dir ..\${{ env.Publish }} -dr APP_INSTALLDIR -ke -srd -sreg -cg ProductComponents -var var.publishDir -t Transform.xsl -gg -out Publish.wxs"
 
 #    # Upload the publish folder
 #    - name: Upload build artifacts
