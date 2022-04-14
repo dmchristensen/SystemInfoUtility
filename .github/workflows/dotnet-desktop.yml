@@ -59,7 +59,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: src\SystemInfoUtility
+        working-directory: src
     
     steps:
     - name: Checkout

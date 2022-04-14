@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <WixPath>C:\Program Files (x86)\WiX Toolset v3.14\bin\</WixPath>
+    <WixPath>C:\Program Files (x86)\WiX Toolset v3.11\bin\</WixPath>
   </PropertyGroup>
 
   <Target Name="TestLight">
-    <Exec Command='"$(WixPath)light" ContinueOnError="false"' />
+    <Exec Command='"$(WixPath)light"' ContinueOnError="false" />
   </Target>
   
 </Project>
