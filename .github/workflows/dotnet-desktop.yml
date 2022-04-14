@@ -80,24 +80,34 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
       
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
+    - name: MSBuild Restore
       run: msbuild $env:SOLUTION_NAME /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
 
     # Publish the solution
-    - name: Publish the solution
+    - name: Publish
       working-directory: src\SystemInfoUtility
       run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
     
     # Harvest the published files
-    - name: Harvest
+    - name: Wix Harvest
       working-directory: src\SystemInfoUtility.Installer
       run: "& '${{ env.WIX_PATH }}\\heat.exe' dir '..\\${{ env.PUBLISH_DIR }}'-dr APP_INSTALLDIR -ke -srd -sreg -cg ProductComponents -var var.publishDir -t Transform.xsl -gg -out Publish.wxs"
 
-#    # Upload the publish folder
-#    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: Publish
-#        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.exe'
+    # Harvest the published files
+    - name: Wix Compile
+      working-directory: src\SystemInfoUtility.Installer
+      run: "& '${{ env.WIX_PATH }}\\candle.exe' -dpublishDir='..\\${{ env.PUBLISH_DIR }}' *.wxs -out wixobj\\"
+
+    # Harvest the published files
+    - name: Wix Link
+      working-directory: src\SystemInfoUtility.Installer
+      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' wixobj\*.wixobj"
+
+    # Upload the publish folder
+    - name: Upload MSI Installer
+      uses: actions/upload-artifact@v3
+      with:
+        name: Publish
+        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.exe'
