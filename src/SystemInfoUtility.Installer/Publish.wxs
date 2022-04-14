@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="APP_INSTALLDIR" />
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ProductComponents">
+            <Component Id="cmp2F961030E04BBC510BB3E914F27E59BF" Directory="APP_INSTALLDIR" Guid="{25222C9F-F1A5-4D2B-8196-BDC4E17C0B57}">
+                <File Id="fil41A652B407B89B4D0D9FD489DB331442" KeyPath="yes" Source="$(var.publishDir)\D3DCompiler_47_cor3.dll" />
+            </Component>
+            <Component Id="cmpCE46152D1467DA3169794EFEB2FA5543" Directory="APP_INSTALLDIR" Guid="{72CAC536-B91C-404E-8533-FCCE50B93CA4}">
+                <File Id="fil0107F2454731141D96422FB846B85849" KeyPath="yes" Source="$(var.publishDir)\PenImc_cor3.dll" />
+            </Component>
+            <Component Id="cmp34DA064BEF089EE9714E22D4ED91415F" Directory="APP_INSTALLDIR" Guid="{18F8263F-6C84-4CB9-9A3C-CBC582B02A54}">
+                <File Id="fil261B403FF95C36083BE38A46673E3593" KeyPath="yes" Source="$(var.publishDir)\PresentationNative_cor3.dll" />
+            </Component>
+            
+            
+            
+            
+            <Component Id="cmpE10B92AE5E14F01C68E2EFD4C55D167F" Directory="APP_INSTALLDIR" Guid="{FDB7FD46-C19A-48F1-9749-9A9F94E2F4CD}">
+                <File Id="fil3A03F5272B94F579460655914A5974CF" KeyPath="yes" Source="$(var.publishDir)\vcruntime140_cor3.dll" />
+            </Component>
+            <Component Id="cmp170A17C4AB7D9AAD8A8F184FAC41D4A8" Directory="APP_INSTALLDIR" Guid="{3CE9CF8D-EBFC-43C1-B20B-037282768DCD}">
+                <File Id="fil096ADED3DC620E9159277CDAA807EA88" KeyPath="yes" Source="$(var.publishDir)\wpfgfx_cor3.dll" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>

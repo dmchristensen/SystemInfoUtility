@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="System Info Utility" Language="1033" Version="!(bind.FileVersion.SystemInfoUtilityExe)" Manufacturer="Darryl Christensen" UpgradeCode="17bc37ff-2f79-4f77-96ed-009bbe4456c8">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" Description="System Info Utility !(bind.FileVersion.SystemInfoUtilityExe)" />
+
+		<MajorUpgrade AllowSameVersionUpgrades="no" AllowDowngrades="no" DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="SystemInfoUtility" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<Component Id="SystemInfoUtilityExeDllComponent" Directory="APP_INSTALLDIR" Guid="9341D550-83AE-4B7F-96BC-B212779D168B">
+				<File Id="SystemInfoUtilityExe" Vital="yes" DiskId="1" KeyPath="yes" Source="$(var.publishDir)\SystemInfoUtility.exe" />
+			</Component>
+			<Component Directory="TARGETDIR">
+				<RegistryValue Root="HKLM" Key="SOFTWARE\Darryl Christensen\System Info Utility" Name="APP_INSTALLDIR" Value="[APP_INSTALLDIR]" Type="string" />
+				<RegistryValue Root="HKLM" Key="SOFTWARE\Darryl Christensen\System Info Utility" Name="APP_VERSION" Value="[ProductVersion]" Type="string" />
+				<RemoveFolder Id="CleanupApplicationFolder" On="uninstall" />
+			</Component>
+			<Component Id="ExeShortcut" Guid="2EA31D5A-E9DC-432F-93C6-6F819EC58DA3" Directory="DesktopFolder">
+				<Shortcut Id="ExeDesktopShortcut"
+						  Name="System Info Utility"
+						  Directory="DesktopFolder"
+						  Description="System Info Utility"
+						  Target="[APP_INSTALLDIR]SystemInfoUtility.exe"
+						  WorkingDirectory="APP_INSTALLDIR"/>
+				<RemoveFolder Id="APP_INSTALLDIR" On="uninstall"/>
+				<RegistryValue Root="HKCU" Key="SOFTWARE\Darryl Christensen\System Info Utility" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			</Component>
+		</Feature>
+		
+		<UIRef Id="MainUI"/>
+		
+		<Property Id="WIXUI_INSTALLDIR" Value="APP_INSTALLDIR"/>
+		
+		<Property Id="APP_INSTALLDIR">
+			<RegistrySearch Id="InstallDirProperty" Root="HKLM" Key="SOFTWARE\Darryl Christensen\System Info Utility" Name="APP_INSTALLDIR" Type="raw" Win64="yes" />
+		</Property>
+
+		<Property Id="APP_VERSION">
+			<RegistrySearch Id="AppVersionProperty" Root="HKLM" Key="SOFTWARE\Darryl Christensen\System Info Utility" Name="APP_VERSION" Type="raw" Win64="yes" />
+		</Property>
+		
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="DesktopFolder" SourceName="Desktop" />
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="MANF_INSTALLDIR" Name="Darryl Christensen">
+					<Directory Id="APP_INSTALLDIR" Name="System Info Utility" />
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+</Wix>

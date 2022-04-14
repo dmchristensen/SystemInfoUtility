@@ -80,27 +80,14 @@ jobs:
 #    # Publish the solution
 #    - name: Publish the solution
 #      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
-      
-#    # Check directories
-#    - name: Check directories
-#      run: Get-ChildItem -Recurse
-    
-    # Echo Variables
-    - name: Echo Wix Path
-      run: echo "${{ env.WIX_PATH }}"
-
-    # Test Wix access
-    - name: Test Wix Light
-      working-directory: ${{ env.WIX_PATH }}
-      run: .\light.exe
 
     # Test MSBuild
-    - name: Restore the application
-      run: msbuild /t:TestLight setup.build
+    - name: Build the installer
+      run: msbuild /t:Publish;Harvest;CreateMSI setup.build
 
-#    # Upload the publish folder
-#    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: Publish
-#        path: src\SystemInfoUtility\bin\Release\net6.0-windows\win-x64\publish
+    # Upload the publish folder
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Publish
+        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.exe'
