@@ -72,6 +72,10 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+    
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
 
 #    # Publish the solution
 #    - name: Publish the solution
@@ -89,6 +93,10 @@ jobs:
     - name: Test Wix Light
       working-directory: ${{ env.WIX_PATH }}
       run: .\light.exe
+
+    # Test MSBuild
+    - name: Restore the application
+      run: msbuild /t:TestLight setup.build
 
 #    # Upload the publish folder
 #    - name: Upload build artifacts
