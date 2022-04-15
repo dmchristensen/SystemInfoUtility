@@ -98,10 +98,6 @@ jobs:
       run: |
         $exeVersion = (Get-Item '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.exe').VersionInfo.FileVersion
         echo "FILE_VERSION=$exeVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-
-    # Echo EXE Version
-    - name: Echo EXE Version
-      run: echo ${{ env.FILE_VERSION }}
     
     # Import the PFX
     - name: Import PFX
@@ -146,6 +142,6 @@ jobs:
     - name: Upload MSI Installer
       uses: actions/upload-artifact@v3
       with:
-        name: System Info Utility MSI
+        name: ${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}
         path: 'src\SystemInfoUtility.Installer\bin\${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi'
         if-no-files-found: error
