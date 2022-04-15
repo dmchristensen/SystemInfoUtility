@@ -148,6 +148,7 @@ jobs:
 
     # Create a Release    
     - name: Create Release
+      id: create_release
       if: github.event_name == 'push'
       uses: actions/create-release@v1
       env:
@@ -158,3 +159,15 @@ jobs:
         body: A new release for ${{ env.FILE_VERSION }}
         draft: true
         prerelease: false
+
+    # Upload the MSI to the Release
+    - name: Upload MSI to Release
+      if: github.event_name == 'push'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: 'src\SystemInfoUtility.Installer\bin\${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi'
+        asset_name: '${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi'
+        asset_content_type: application/octet-stream
