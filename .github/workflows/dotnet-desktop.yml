@@ -90,6 +90,15 @@ jobs:
     - name: Publish
       working-directory: src\SystemInfoUtility
       run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
+
+    # Get the EXE Version
+    - name: Get EXE Version
+      working-directory: src
+      run: "(Get-Item '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.exe').VersionInfo.FileVersion >> $env.FILE_VERSION"
+
+    # Echo EXE Version
+    - name: Echo EXE Version
+      run: "echo ${{ env.FILE_VERSION }}"
     
     # Import the PFX
     - name: Import PFX
