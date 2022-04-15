@@ -51,6 +51,7 @@ env:
   WINDOWS_SDK_PATH: 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86'
   TIMESTAMP_URL: 'http://timestamp.digicert.com'
   SIGNED_NAME: 'System Info Utility'
+  MSI_FILE_NAME: 'System Info Utility x64'
   PFX_FILE: 'cert.pfx'
 
 jobs:
@@ -100,7 +101,7 @@ jobs:
 
     # Echo EXE Version
     - name: Echo EXE Version
-      run: echo $FILE_VERSION
+      run: echo ${{ env.FILE_VERSION }}
     
     # Import the PFX
     - name: Import PFX
@@ -129,12 +130,12 @@ jobs:
     # Create the MSI installer
     - name: Wix Link
       working-directory: src\SystemInfoUtility.Installer
-      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\System Info Utility.msi' -v wixobj\\*.wixobj"
+      run: "& '${{ env.WIX_PATH }}\\light.exe' -ext WixUIExtension -out 'bin\\${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi' -v wixobj\\*.wixobj"
 
     # Sign the MSI Installer
     - name: Sign MSI
       working-directory: src
-      run: "& '${{ env.WINDOWS_SDK_PATH }}\\signtool.exe' sign /sm /t '${{ env.TIMESTAMP_URL }}' /d '${{ env.SIGNED_NAME }}' /sha1 '${{ secrets.CERT_HASH }}' 'SystemInfoUtility.Installer\\bin\\System Info Utility.msi'"
+      run: "& '${{ env.WINDOWS_SDK_PATH }}\\signtool.exe' sign /sm /t '${{ env.TIMESTAMP_URL }}' /d '${{ env.SIGNED_NAME }}' /sha1 '${{ secrets.CERT_HASH }}' 'SystemInfoUtility.Installer\\bin\\${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi'"
 
     # Remove the PFX
     - name: Remove PFX
@@ -146,5 +147,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: System Info Utility MSI
-        path: 'src\SystemInfoUtility.Installer\bin\System Info Utility.msi'
+        path: 'src\SystemInfoUtility.Installer\bin\${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi'
         if-no-files-found: error
