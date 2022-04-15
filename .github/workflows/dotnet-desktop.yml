@@ -145,3 +145,16 @@ jobs:
         name: ${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}
         path: 'src\SystemInfoUtility.Installer\bin\${{ env.MSI_FILE_NAME }} ${{ env.FILE_VERSION }}.msi'
         if-no-files-found: error
+
+    # Create a Release    
+    - name: Create Release
+      if: github.event_name == 'push'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ env.FILE_VERSION }}
+        release_name: Release ${{ env.FILE_VERSION }}
+        body: A new release for ${{ env.FILE_VERSION }}
+        draft: true
+        prerelease: false
