@@ -33,7 +33,7 @@
 # See "Build the Windows Application Packaging project" below to see how the secret is used.
 #
 # For more information on GitHub Actions, refer to https://github.com/features/actions
-# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
+# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
 name: Wix Installer Build
@@ -94,11 +94,13 @@ jobs:
     # Get the EXE Version
     - name: Get EXE Version
       working-directory: src
-      run: "(Get-Item '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.exe').VersionInfo.FileVersion >> $env.FILE_VERSION"
+      run: |
+        $exeVersion = (Get-Item '${{ env.PUBLISH_DIR }}\\SystemInfoUtility.exe').VersionInfo.FileVersion
+        echo "FILE_VERSION=$exeVersion" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
 
     # Echo EXE Version
     - name: Echo EXE Version
-      run: echo "${{ env.FILE_VERSION }}""
+      run: echo $FILE_VERSION
     
     # Import the PFX
     - name: Import PFX
