@@ -80,14 +80,6 @@ namespace SystemInfoUtility.Content.ViewModels
             set { SetProperty(ref _processID, value); }
         }
 
-        private int _currentManagedThreadID = default!;
-
-        public int CurrentManagedThreadID
-        {
-            get { return _currentManagedThreadID; }
-            set { SetProperty(ref _currentManagedThreadID, value); }
-        }
-
         private int _processorCount = default!;
 
         public int ProcessorCount
@@ -132,7 +124,6 @@ namespace SystemInfoUtility.Content.ViewModels
             SystemDirectory = Environment.SystemDirectory;
             CLRVersion = Environment.Version.ToString();
             ProcessID = Environment.ProcessId;
-            CurrentManagedThreadID = Environment.CurrentManagedThreadId;
             ProcessorCount = Environment.ProcessorCount;
             SystemUpTime = GetSystemUpTime();
             WorkingSet = GetWorkingSetInMB();
