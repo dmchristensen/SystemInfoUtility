@@ -31,10 +31,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        
-    # Print out event info
-    - name: Print Event Info
-      run: echo "${{ github.event.head_commit.message }}"
 
     # Install the .NET Core workload
     - name: Install .NET Core
@@ -122,7 +118,7 @@ jobs:
       with:
         tag_name: ${{ env.FILE_VERSION }}
         release_name: Release ${{ env.FILE_VERSION }}
-        body: A new release for ${{ env.FILE_VERSION }}
+        body: ${{ github.event.head_commit.message }}
         draft: true
         prerelease: false
 
