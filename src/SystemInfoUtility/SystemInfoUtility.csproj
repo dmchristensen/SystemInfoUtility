@@ -8,7 +8,7 @@
 	<Deterministic>false</Deterministic>
 	<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
 	<GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-	<AssemblyVersion>0.2.*</AssemblyVersion>
+	<AssemblyVersion>0.3.*</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
