@@ -34,7 +34,7 @@ jobs:
         
     # Print out event info
     - name: Print Event Info
-      run: echo "${{toJSON(github.event)}}"
+      run: echo "${{ github.event }}"
 
     # Install the .NET Core workload
     - name: Install .NET Core
