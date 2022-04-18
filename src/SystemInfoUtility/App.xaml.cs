@@ -1,4 +1,5 @@
-﻿using Prism.DryIoc;
+﻿using AutoUpdaterDotNET;
+using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -36,6 +37,18 @@ namespace SystemInfoUtility
         {
             moduleCatalog.AddModule<NavigationModule>();
             moduleCatalog.AddModule<ContentModule>();
+        }
+
+        protected override void OnInitialized()
+        {
+            AutoUpdater.LetUserSelectRemindLater = true;
+            AutoUpdater.RemindLaterTimeSpan = RemindLaterFormat.Minutes;
+            AutoUpdater.RemindLaterAt = 1;
+            AutoUpdater.ReportErrors = false;
+
+            AutoUpdater.Start(@"https://qa.stratumglobal.com/update-wpf/version.xml");
+
+            base.OnInitialized();
         }
     }
 }
