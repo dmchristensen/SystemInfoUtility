@@ -11,6 +11,16 @@
         PlaceTitleBarOverContent="True"
         Title="System Info Utility" Height="500" Width="1000">
 
+    <Window.Resources>
+        <Style x:Key="NavigationGroupHeaderStyle"
+                   TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static adonisUi:Brushes.ForegroundBrush}}"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="{adonisUi:Space 2, 1, 1, 1}"/>
+        </Style>
+    </Window.Resources>
+
     <adonisControls:AdonisWindow.TitleBarContent>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right">
@@ -20,19 +30,34 @@
                     FontSize="14"/>
         </StackPanel>
     </adonisControls:AdonisWindow.TitleBarContent>
+    
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <GroupBox Grid.Column="0"
-                  Padding="0">
-            <StackPanel>
-                <Border Height="{Binding Path=TitleBarActualHeight, RelativeSource={RelativeSource AncestorType={x:Type adonisControls:AdonisWindow}}}" />
-                <ContentControl  prism:RegionManager.RegionName="NavigationRegion"/>
-            </StackPanel>
+        
+        <GroupBox Grid.Column="0" Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel VerticalAlignment="Stretch">
+                        <Border Height="{Binding Path=TitleBarActualHeight, RelativeSource={RelativeSource AncestorType={x:Type adonisControls:AdonisWindow}}}" />
+                        <ContentControl  prism:RegionManager.RegionName="NavigationRegion"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                    <TextBlock Text="{Binding ApplicationVersion}" Style="{StaticResource NavigationGroupHeaderStyle}"/>
+                </Grid>
+                
+            </Grid>
+
         </GroupBox>
+
         <StackPanel Grid.Column="1">
             <Border Height="{Binding Path=TitleBarActualHeight, RelativeSource={RelativeSource AncestorType={x:Type adonisControls:AdonisWindow}}}" />
             <ContentControl  prism:RegionManager.RegionName="ContentRegion"/>

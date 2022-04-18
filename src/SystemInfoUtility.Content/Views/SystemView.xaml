@@ -26,7 +26,6 @@
             <RowDefinition Height="28"></RowDefinition>
             <RowDefinition Height="28"></RowDefinition>
             <RowDefinition Height="28"></RowDefinition>
-            <RowDefinition Height="28"></RowDefinition>
         </Grid.RowDefinitions>
         
         <Grid.Resources>
@@ -64,20 +63,17 @@
         <Label Grid.Column="0" Grid.Row="7" Content="System Directory"></Label>
         <Label Grid.Column="1" Grid.Row="7" Content="{Binding SystemDirectory}" />
 
-        <Label Grid.Column="0" Grid.Row="8" Content="Managed Thread ID"></Label>
-        <Label Grid.Column="1" Grid.Row="8" Content="{Binding CurrentManagedThreadID}" />
+        <Label Grid.Column="0" Grid.Row="8" Content="Process ID"></Label>
+        <Label Grid.Column="1" Grid.Row="8" Content="{Binding ProcessID}" />
 
-        <Label Grid.Column="0" Grid.Row="9" Content="Process ID"></Label>
-        <Label Grid.Column="1" Grid.Row="9" Content="{Binding ProcessID}" />
+        <Label Grid.Column="0" Grid.Row="9" Content="Processor Count"></Label>
+        <Label Grid.Column="1" Grid.Row="9" Content="{Binding ProcessorCount}" />
 
-        <Label Grid.Column="0" Grid.Row="10" Content="Processor Count"></Label>
-        <Label Grid.Column="1" Grid.Row="10" Content="{Binding ProcessorCount}" />
+        <Label Grid.Column="0" Grid.Row="10" Content="Working Set (MB)"></Label>
+        <Label Grid.Column="1" Grid.Row="10" Content="{Binding WorkingSet}" />
 
-        <Label Grid.Column="0" Grid.Row="11" Content="Working Set (MB)"></Label>
-        <Label Grid.Column="1" Grid.Row="11" Content="{Binding WorkingSet}" />
-
-        <Label Grid.Column="0" Grid.Row="12" Content="System Up Time"></Label>
-        <Label Grid.Column="1" Grid.Row="12" Content="{Binding SystemUpTime}" />
+        <Label Grid.Column="0" Grid.Row="11" Content="System Up Time"></Label>
+        <Label Grid.Column="1" Grid.Row="11" Content="{Binding SystemUpTime}" />
 
     </Grid>
 </UserControl>
