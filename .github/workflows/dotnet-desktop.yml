@@ -52,7 +52,7 @@ jobs:
     # Publish the solution
     - name: Publish
       working-directory: src\SystemInfoUtility
-      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True
+      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=True -p:TrimMode=CopyUsed -p:PublishReadyToRun=True -p:DebugType=None -p:DebugSymbols=false
 
     # Get the EXE Version
     - name: Get EXE Version
