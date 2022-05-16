@@ -39,6 +39,15 @@
 		<Property Id="APP_VERSION">
 			<RegistrySearch Id="AppVersionProperty" Root="HKLM" Key="SOFTWARE\Darryl Christensen\System Info Utility" Name="APP_VERSION" Type="raw" Win64="yes" />
 		</Property>
+
+		<Property Id="SERVER_ADDRESS" Value="https://from.wix"/>
+
+		<!-- Custom Actions -->
+		<Binary Id="CustomActionDLL" SourceFile="$(var.SystemInfoUtility.Installer.CustomActions.TargetDir)SystemInfoUtility.Installer.CustomActions.CA.dll"/>
+		<CustomAction Id="CA_WriteToFile" BinaryKey="CustomActionDLL" DllEntry="WriteServerAddressToFile" Execute="immediate" Return="check" />
+		<InstallUISequence>
+			<Custom Action="CA_WriteToFile" After="LaunchConditions" />
+		</InstallUISequence>
 		
 	</Product>
 
